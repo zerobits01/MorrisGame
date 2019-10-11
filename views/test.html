@@ -1,0 +1,79 @@
+<!--<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Group Chat on Node.js</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
+        form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="/" method="POST" id="chatForm">
+      <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+    </form>
+    <script>
+        // submit text message without reload/refresh the page
+        $('form').submit(function(e){
+            e.preventDefault(); // prevents page reloading
+            $('#txt').val('');
+            return false;
+        });
+    </script>
+  </body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Group Chat on Node.js</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
+        form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	
+  </head>
+  <body>
+  
+	 <!--<button onclick="connect()">Connect</button> -->
+    <ul id="messages"></ul>
+    <form action="/" method="POST" id="chatForm">
+      <input id="txt" autocomplete="off" autofocus="on"  placeholder="type your message here..." />
+    </form>
+	<button onclick="movement()">Send</button>  
+    <script>
+			var socket = io.connect('http://localhost:3000', { query: "authenticate=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVuYW1lIiwiaWF0IjoxNTcwNDQyMjMyLCJleHAiOjE1NzQwNDIyMzJ9.p5uCFVxbTWUY1RbHalLMU2yiHPIFLZKYe7NFo9d2pXo" });
+			console.log(socket);
+            // append the chat text message
+            socket.on('message', function(msg){
+				console.log(msg);
+            });
+			socket.on('start', function(msg){
+				console.log(msg);
+            });
+			socket.on('winner' , function(msg){
+				console.log(msg);
+            });
+			function movement(){
+				console.log('clicked');
+				var value = document.getElementById("txt").value;
+				socket.emit('movement', 'test string');
+			}
+    </script>
+  </body>
+</html>
