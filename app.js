@@ -19,6 +19,8 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
+console.log('******** start of the app ******** \n');
+
 mongoose.connect(
   "mongodb://" +
     config.mongo.user +
