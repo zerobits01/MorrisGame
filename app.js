@@ -28,6 +28,10 @@ mongoose.connect(
     config.mongo.hostString
 );
 
+mongoose.connection.on('connect' , () => {
+  console.log('connected to mongodb');
+});
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
