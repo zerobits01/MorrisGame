@@ -12,7 +12,7 @@ let aihost = "example.com";
 let aipath = "path";
 // test comment 
 
-var config = JSON.parse(process.env.APP_CONFIG);
+// var config = JSON.parse(process.env.APP_CONFIG); ############
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -21,7 +21,7 @@ mongoose.set('useUnifiedTopology', true);
 
 console.log('******** start of the app ******** \n');
 
-mongoose.connect(
+/*mongoose.connect(
   "mongodb://" +
     config.mongo.user +
     ":" +
@@ -29,7 +29,9 @@ mongoose.connect(
     "@" +
     config.mongo.hostString
 );
-
+########################################
+*/
+mongoose.connect('mongodb://localhost:27017/GameApp');
 mongoose.connection.on('connect' , () => {
   console.log('connected to mongodb');
 });
@@ -48,7 +50,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(cors());
+app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -79,7 +81,7 @@ var server = http.createServer(app); // options,
 var io = require("socket.io")(server);
 
 
-server.listen();
+server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 

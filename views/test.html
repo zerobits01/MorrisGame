@@ -57,7 +57,7 @@
     </form>
 	<button onclick="movement()">Send</button>  
     <script>
-			var socket = io.connect('http://localhost:3000', { query: "authenticate=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVuYW1lIiwiaWF0IjoxNTcwNDQyMjMyLCJleHAiOjE1NzQwNDIyMzJ9.p5uCFVxbTWUY1RbHalLMU2yiHPIFLZKYe7NFo9d2pXo" });
+			var socket = io.connect('morrisfa.eu-4.evennode.com', { query: "authenticate=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVuYW1lIiwiaWF0IjoxNTcwNDQyMjMyLCJleHAiOjE1NzQwNDIyMzJ9.p5uCFVxbTWUY1RbHalLMU2yiHPIFLZKYe7NFo9d2pXo" });
 			console.log(socket);
             // append the chat text message
             socket.on('message', function(msg){
