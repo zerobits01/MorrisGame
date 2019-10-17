@@ -76,7 +76,7 @@ var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
 var server = http.createServer(app); // options,
-var io = require("socket.io")(server , { origins: 'morrisfa.eu-4.evennode.com:*'});
+var io = require("socket.io")(server , { origins: '*:*'});
 
 server.listen();
 server.on("error", onError);
