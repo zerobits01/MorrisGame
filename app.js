@@ -78,7 +78,7 @@ app.set("port", port);
 var server = http.createServer(app); // options,
 var io = require("socket.io")(server , { origins: '*'});
 
-server.listen(port);
+server.listen();
 server.on("error", onError);
 server.on("listening", onListening);
 
@@ -216,23 +216,3 @@ io.on("connection", socket => {
     }
   });
 });
-/*
-.use(function(socket, next) {
-  // front : var c = io.connect('http:example:437/', { query: "authenticate=$token" });
-  let token = socket.request._query["authenticate"];
-  // console.log(socket.request._query["authenticate"]);
-  if (token) {
-    jwt.verify(token, "zero-bits01-secret", (err, decoded) => {
-      if (err) {
-        socket.disconnect();
-      } else {
-        // console.log(decoded.username);
-        socket.username = decoded.username;
-        next();
-      }
-    });
-  } else {
-    socket.disconnect();
-  }
-})
- */
