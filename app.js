@@ -77,7 +77,7 @@ app.set("port", port);
 
 var server = http.createServer(app); // options,
 var io = require("socket.io")(server);
-// io.origins('http://*:*');
+
 
 server.listen();
 server.on("error", onError);
