@@ -7,9 +7,6 @@
 var app = require("../app");
 var debug = require("debug")("gameapp:server");
 var https = require("http");
-var fs = require("fs");
-var jwt = require("jsonwebtoken");
-
 /**
  * set these for ai part 
  * */
@@ -18,11 +15,6 @@ let aipath = 'path';
 /**
  * Get port from environment and store in Express.
  */
-
-var options = {
-  key: fs.readFileSync("../file.pem", "utf8"),
-  cert: fs.readFileSync("../file.crt", "utf8")
-};
 
 var port = normalizePort(process.env.PORT);
 app.set("port", port);
@@ -113,24 +105,8 @@ function search(nameKey, myArray) {
 }
 let users = [];
 let players = [];
-io.use(function(socket, next) {
-  // front : var c = io.connect('https:example:437/', { query: "authenticate=$token" });
-  let token = socket.request._query["authenticate"];
-  console.log(socket.request._query["authenticate"]);
-  if (token) {
-    jwt.verify(token, "zero-bits01-secret", (err, decoded) => {
-      if (err) {
-        socket.disconnect();
-      } else {
-        console.log(decoded.username);
-        socket.username = decoded.username;
-        next();
-      }
-    });
-  } else {
-    socket.disconnect();
-  }
-}).on("connection", socket => {
+io.on("connection", socket => {
+  console.log('user tries to connect');
   if (search(socket.username, users) == -1) {
     users.push({
       id: socket.id,
@@ -208,3 +184,4 @@ io.use(function(socket, next) {
     }
   });
 });
+ 
