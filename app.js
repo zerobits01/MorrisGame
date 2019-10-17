@@ -12,7 +12,7 @@ let aihost = "example.com";
 let aipath = "path";
 // test comment 
 
-// var config = JSON.parse(process.env.APP_CONFIG); ############
+var config = JSON.parse(process.env.APP_CONFIG); ############
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -21,7 +21,7 @@ mongoose.set('useUnifiedTopology', true);
 
 console.log('******** start of the app ******** \n');
 
-/*mongoose.connect(
+mongoose.connect(
   "mongodb://" +
     config.mongo.user +
     ":" +
@@ -29,9 +29,7 @@ console.log('******** start of the app ******** \n');
     "@" +
     config.mongo.hostString
 );
-########################################
-*/
-mongoose.connect('mongodb://localhost:27017/GameApp');
+// mongoose.connect('mongodb://localhost:27017/GameApp');
 mongoose.connection.on('connect' , () => {
   console.log('connected to mongodb');
 });
