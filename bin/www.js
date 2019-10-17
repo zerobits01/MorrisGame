@@ -26,7 +26,8 @@ app.set("port", port);
 var server = https.createServer(app); // options,
 
 var io = require("socket.io")(server);
-
+io.origins('*:*');
+// io.set('origins', '*:*');
 /**
  * Listen on provided port, on all network interfaces.
  */
