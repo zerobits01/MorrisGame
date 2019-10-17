@@ -12,7 +12,7 @@ let aihost = "example.com";
 let aipath = "path";
 // test comment 
 
-var config = JSON.parse(process.env.APP_CONFIG); ############
+var config = JSON.parse(process.env.APP_CONFIG);
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
