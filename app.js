@@ -73,10 +73,10 @@ module.exports = app;
 
 
 var port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+// app.set("port", port);
 
-var server = http.createServer(app); // options,
-
+// var server = http.createServer(app); // options,
+var server = app.listen(port);
 var io = require("socket.io")(server , { origins: '*:*'});
 
 server.listen(port);
