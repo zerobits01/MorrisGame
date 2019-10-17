@@ -138,6 +138,7 @@ function search(nameKey, myArray) {
 let users = [];
 let players = [];
 io.on("connection", socket => {
+  console.log(socket.id + 'tries to connect')
   if (search(socket.id, users) == -1) {
     users.push({
       id: socket.id,
