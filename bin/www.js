@@ -107,8 +107,9 @@ function search(nameKey, myArray) {
 let users = [];
 let players = [];
 io.on("connection", socket => {
-  console.log('user tries to connect');
   if (search(socket.username, users) == -1) {
+    console.log(socket.id);
+    console.log(users);
     users.push({
       id: socket.id,
       username: socket.username
@@ -116,7 +117,7 @@ io.on("connection", socket => {
   }
   if (users.length < 2) {
     socket.emit("message", { msg: "no online users" });
-  } else {
+  } else { 
     let p1 = users.shift();
     let p2 = users.shift();
     players.push(p1);
