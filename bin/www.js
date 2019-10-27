@@ -169,15 +169,14 @@ io.on("connection", socket => {
     req.end();
   });
   socket.on("movement", data => {
-    data = JSON.parse(data);
+    let temp = JSON.parse(data);
     console.log("movement event received with data : " + data);    
     if (
-      search(data.opid, players) > -1 &&
-      io.sockets.sockets[data.opid] != undefined
+      search(temp.opid, players) > -1 &&
+      io.sockets.sockets[temp.opid] != undefined
     ) {
       console.log("movement event emitted with data : " + data);  
-      data = JSON.stringify(data);  
-      io.to(data.opid).emit("movement", data);
+      io.to(temp.opid).emit("movement", data);
     } else {
       console.log("opponent left the game winner event emitted");
       socket.emit("winner", { msg: "you are the winner" });
