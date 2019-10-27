@@ -175,7 +175,8 @@ io.on("connection", socket => {
       search(data.opid, players) > -1 &&
       io.sockets.sockets[data.opid] != undefined
     ) {
-      console.log("movement event emitted with data : " + data);    
+      console.log("movement event emitted with data : " + data);  
+      data = JSON.stringify(data);  
       io.to(data.opid).emit("movement", data);
     } else {
       console.log("opponent left the game winner event emitted");
