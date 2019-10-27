@@ -183,6 +183,7 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
+    console.log("user left the socket pool with id : " + socket.id);
     let index = search(socket.id, players);
     if (index > -1) {
       players.splice(index, 1);
