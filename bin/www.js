@@ -169,6 +169,7 @@ io.on("connection", socket => {
     req.end();
   });
   socket.on("movement", data => {
+    data = JSON.parse(data);
     console.log("movement event received with data : " + data);    
     if (
       search(data.opid, players) > -1 &&
