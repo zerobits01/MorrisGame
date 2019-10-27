@@ -8,15 +8,15 @@ var app = require("../app");
 var debug = require("debug")("gameapp:server");
 var https = require("http");
 /**
- * set these for ai part 
+ * set these for ai part
  * */
-let aihost = 'example.com';
-let aipath = 'path';
+let aihost = "example.com";
+let aipath = "path";
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT|'3000');
+var port = normalizePort(process.env.PORT | "3000");
 app.set("port", port);
 
 /**
@@ -26,8 +26,8 @@ app.set("port", port);
 var server = https.createServer(app); // options,
 
 var io = require("socket.io")(server);
-io.origins('*:*');
-io.set('origins', '*:*');
+io.origins("*:*");
+io.set("origins", "*:*");
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -107,17 +107,15 @@ function search(nameKey, myArray) {
 let users = [];
 let players = [];
 io.on("connection", socket => {
-  if (search(socket.username, users) == -1) {
-    console.log(socket.id);
-    console.log(users);
-    users.push({
-      id: socket.id,
-      username: socket.username
-    });
-  }
+  console.log(socket.id);
+  console.log(users);
+  users.push({
+    id: socket.id,
+    username: socket.username
+  });
   if (users.length < 2) {
     socket.emit("message", { msg: "no online users" });
-  } else { 
+  } else {
     let p1 = users.shift();
     let p2 = users.shift();
     players.push(p1);
@@ -158,7 +156,7 @@ io.on("connection", socket => {
     };
     const req = https.request(options, res => {
       res.on("data", d => {
-        socket.emit('movement' , d)
+        socket.emit("movement", d);
       });
     });
 
@@ -186,4 +184,3 @@ io.on("connection", socket => {
     }
   });
 });
- 
