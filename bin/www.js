@@ -115,11 +115,13 @@ io.on("connection", socket => {
   });
   if (users.length == 1) {
     socket.emit("message", { msg: "no online users" });
+    console.log("message event emitted");
   } else {
     let p1 = users.shift();
     let p2 = users.shift();
     players.push(p1);
     players.push(p2);
+    console.log("start event emitted to both users");
     io.to(p1.id).emit("start", {
       opname: p2.username,
       opid: p2.id,
@@ -167,12 +169,15 @@ io.on("connection", socket => {
     req.end();
   });
   socket.on("movement", data => {
+    console.log("movement event received with data : " + data);    
     if (
       search(data.opid, players) > -1 &&
       io.sockets.sockets[data.opid] != undefined
     ) {
+      console.log("movement event emitted with data : " + data);    
       io.to(data.opid).emit("movement", data);
     } else {
+      console.log("opponent left the game winner event emitted");
       socket.emit("winner", { msg: "you are the winner" });
     }
   });
