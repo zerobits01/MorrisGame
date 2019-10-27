@@ -98,7 +98,7 @@ let user = require("../models//User");
 
 function search(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
-    if (myArray[i].username === nameKey) {
+    if (myArray[i].id === nameKey) {
       return i;
     }
   }
@@ -111,9 +111,9 @@ io.on("connection", socket => {
   console.log(users);
   users.push({
     id: socket.id,
-    username: socket.username
+    // username: socket.username
   });
-  if (users.length < 2) {
+  if (users.length == 1) {
     socket.emit("message", { msg: "no online users" });
   } else {
     let p1 = users.shift();
@@ -133,7 +133,7 @@ io.on("connection", socket => {
   }
 
   socket.on("ai", () => {
-    let index = search(socket.username, users);
+    let index = search(socket.id, users);
     let p = users.splice(index, 1);
     players.push(p);
     io.to(p.id).emit("start", {
@@ -178,7 +178,7 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    let index = search(socket.username, players);
+    let index = search(socket.id, players);
     if (index > -1) {
       players.splice(index, 1);
     }
