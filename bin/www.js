@@ -106,12 +106,31 @@ function search(nameKey, myArray) {
 }
 let users = [];
 let players = [];
-io.on("connection", socket => {
+
+
+io.use(function(socket, next) {
+  // front : var c = io.connect('https:example:437/', { query: "authenticate=$token" });
+  let token = socket.request._query["authenticate"];
+  console.log(socket.request._query["authenticate"]);
+  if (token) {
+    jwt.verify(token, "zero-bits01-secret", (err, decoded) => {
+      if (err) {
+        socket.disconnect();
+      } else {
+        console.log(decoded.username);
+        socket.username = decoded.username;
+        next();
+      }
+    });
+  } else {
+    socket.disconnect();
+  }
+}).on("connection", socket => {
   console.log(socket.id);
   console.log(users);
   users.push({
     id: socket.id,
-    // username: socket.username
+    username: socket.username
   });
   if (users.length == 1) {
     socket.emit("message", { msg: "no online users" });
